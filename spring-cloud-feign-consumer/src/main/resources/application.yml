@@ -1,0 +1,28 @@
+server: 
+  port: 3002
+  
+spring: 
+  application: 
+    name: spring-cloud-consumer
+
+eureka: 
+  client: 
+    serviceUrl: 
+      defaultZone: http://localhost:3000/eureka/
+    healthcheck: 
+      enabled: true  # 开启健康检查（依赖spring-boot-starter-actuator）
+      
+feign: 
+  hystrix:
+    enabled: true  #开启此配置后，类路径必须包含hystrix相关包
+  httpclient:
+    enabled: true   #开启使用Apach httpclient 替换原生
+    connection-timeout: 20000 #超时时间
+    
+#spring boot 2.X 后，hystrix dashboard 需要显式配置才可正常访问熔断器面板，
+#Single Hystrix App: http://hystrix-app:port/actuator/hystrix.stream     
+management: 
+  endpoints: 
+    web: 
+      exposure: 
+        include: hystrix.stream

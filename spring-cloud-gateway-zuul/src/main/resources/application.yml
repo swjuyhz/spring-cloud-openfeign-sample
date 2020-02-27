@@ -1,0 +1,22 @@
+server: 
+  port: 3001
+  
+spring: 
+  application: 
+    name: gateway-service-zuul
+
+#通过path绑定服务名称 ,下一种为通过服务名绑定映射（此更容易理解）
+#zuul: 
+#  routes: 
+#    producer: 
+#      path: /producer/**  
+#      serviceId: spring-cloud-producer
+
+zuul:
+  routes: #配置路由映射
+    spring-cloud-producer: /producer/** #给指定的服务做映射, 当前配置给provider-user添加映射地址为/route-map1
+    spring-cloud-consumer: /feign/**
+eureka: 
+  client: 
+    serviceUrl: 
+      defaultZone: http://localhost:3000/eureka/
